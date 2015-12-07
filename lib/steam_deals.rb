@@ -9,5 +9,6 @@ require "steam_deals/deal"
 module SteamDeals
 end
 
-game = SteamDeals::Deal.new("Screencheat","https://steamdb.info/app/301970/")
-game.scrape_add_details
+SteamDeals::Deal.scrape_deals_list
+#game = SteamDeals::Deal.all[0]
+#game.scrape_add_details
