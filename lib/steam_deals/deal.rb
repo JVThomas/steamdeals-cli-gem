@@ -13,6 +13,7 @@ class SteamDeals::Deal
     @publisher = ""
     @supported_os = ""
     @app_desc = ""
+    scrape_add_details
   end
 
   def self.scrape_deals_list #only scrapes daily deal for now
@@ -25,14 +26,15 @@ class SteamDeals::Deal
       price = "#{app.css("td")[4].text}"
       game = SteamDeals::Deal.new(app_name,app_url,discount,price)
       @@all << game
-      #binding.pry
     end
-    @@all.each{|app| app.scrape_add_details}
-    #binding.pry
   end
 
   def self.all
     @@all
+  end
+
+  def self.game_at(num)
+    @@all[num-1]
   end
 
   def scrape_add_details
