@@ -2,7 +2,7 @@ class SteamDeals::Deal
   
   @@all = []
   
-  attr_accessor :name, :details_url #come back here to add more vars if needed
+  attr_accessor :name, :details_url, :app_type, :developer, :publisher, :supported_os, :app_desc #come back here to add more vars if needed
 
   def initialize(name = "", url = "")
     @name = name
@@ -19,5 +19,19 @@ class SteamDeals::Deal
       @@all << game
     end
     binding.pry
+  end
+
+  def self.all
+    @@all
+  end
+
+  def scrape_add_details
+    doc = Nokogiri::HTML(open(@details_url))
+    @app_desc = doc.css(".span4 p.header-description").text
+    app_details = doc.css(".table-dark tr")
+    @app_type = app_details[1].css("td")[1].text
+    @developer = app_details[3].css("td")[1].text
+    @publisher = app_details[4].css("td")[1].text
+    @supported_os = app_details.css(".icon").collect{|element| element["aria-label"]}.join(", ")
   end
 end
