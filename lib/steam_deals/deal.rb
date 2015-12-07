@@ -43,9 +43,9 @@ class SteamDeals::Deal
     @app_desc = doc.css(".span4 p.header-description").text
     app_details = doc.css(".table-dark tr")
     if app_details[0].css("td")[0].text == "App ID"
-      @app_type = app_details[1].css("td")[1].text if app_details[1].css("td")[0].text == "Game"
-      @developer = app_details[3].css("td")[1].text if app_details[3].css("td")[0].text == "Developer" 
-      @publisher = app_details[4].css("td")[1].text if app_details[4].css("td")[0].text == "Publisher"
+      @app_type = app_details[1].css("td")[1].text 
+      @developer = app_details[3].css("td")[1].text 
+      @publisher = app_details[4].css("td")[1].text
       @supported_os = app_details.css(".icon").collect{|element| element["aria-label"]}.join(", ")
     end
   end 
