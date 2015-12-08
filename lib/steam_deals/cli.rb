@@ -14,7 +14,6 @@ class SteamDeals::CLI
       puts "or you can enter 'exit' to exit out of the program"
       input = gets.chomp
       game = SteamDeals::Deal.app_at(input.to_i)
-      #binding.pry
       display_details(game) if input == "1" || input == "2"
     end
     puts "Goodbye!"
