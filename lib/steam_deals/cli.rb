@@ -13,15 +13,21 @@ class SteamDeals::CLI
       puts "Which game would you like to see in detail? (Enter the number associtaed with game on list)"
       puts "or you can enter 'exit' to exit out of the program"
       input = gets.chomp
-      game = SteamDeals::Deal.app_at(input.to_i)
-      display_details(game) if input == "1" || input == "2"
+
+      if input.downcase == "exit"
+        puts "\nGoodbye!"
+      elsif input.to_i > 0 && input.to_i < (SteamDeals::Deal.all.length)+1
+        game = SteamDeals::Deal.app_at(input.to_i)
+        display_details(game)
+      else
+        puts "\nInvalid input. Try again.\n" 
+      end
     end
-    puts "Goodbye!"
   end
 
   def display_details(game)
     input = ""
-    while input != "exit"
+    while input.downcase != "exit"
       puts ""
       puts "What details would you like to see? (Enter number choice or type exit to return to previous menu"
       puts ""
@@ -35,6 +41,10 @@ class SteamDeals::CLI
         show_sale_details(game)
       when "2"
         show_app_details(game)
+      when "exit"
+        puts "\nReturning to menu\n"
+      else
+        puts "\nInvalid input. Try again.\n"
       end
     
     end
